@@ -19,7 +19,7 @@ body{
 
 }
 
-@media (min-width: 320px) and (max-width: 499px) {
+@media (min-width: 320px) and (max-width: 990px) {
    body{
     margin: 20px;
     zoom: 220%;
