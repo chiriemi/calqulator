@@ -116,6 +116,9 @@ function calcul(){
     if(freq === "lpf" || freq === "hpf") {
         var f0 = document.getElementById("f0").value;
         var w0 = 2 * Math.PI * f0;
+
+        // Filtru trece jos LPF
+
         if(freq === "lpf") {
 
             for(i=1; i<=n; i++) {
@@ -139,6 +142,8 @@ function calcul(){
                 console.log("L" + i + " = " + CL[i]);
             }
         }
+
+        // Filtru trece sus HPF
 
         else {
             for(i=1; i<=n; i++) {
@@ -167,6 +172,9 @@ function calcul(){
         var BW = document.getElementById("BW").value;
         var MIRR = [];
         var wc = 2 * Math.PI * fc;
+
+        // Filtru trece banda BPF
+
         if(freq === "bpf") {
             var Qbp = wc/(2 * Math.PI * BW);
             for(i=1;i<=n; i++){
@@ -184,6 +192,8 @@ function calcul(){
                 // console.log("L" + i + " = " + MIRR[i]);
             }
         }
+
+        // Filtru banda stop BRF
 
         else {
             var Qbr = wc/(2*Math.PI*BW);
@@ -215,5 +225,7 @@ function calculus(){
         showdata.removeChild(showdata.lastChild);
     }
     calcul();
+
+    CSS
     
 }
