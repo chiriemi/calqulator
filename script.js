@@ -7,40 +7,41 @@ function addFieldsFreq() {
   while (containerFreq.hasChildNodes()) {
     containerFreq.removeChild(containerFreq.lastChild);
   }
+  if (freq) {
+    if (freq === "lpf" || freq === "hpf") {
+      // Append a node with a random text
+      containerFreq.appendChild(document.createTextNode("f0 : "));
+      // Create an <input> element, set its type, id and name attributes
+      var input = document.createElement("input");
+      input.type = "text";
+      input.name = "f0";
+      input.id = "f0";
+      containerFreq.appendChild(input);
+      // Append a line break
+      containerFreq.appendChild(document.createElement("br"));
+    } else {
+      // Append a node with a random text
+      containerFreq.appendChild(document.createTextNode("fc : "));
+      // Create an <input> element, set its type, id and name attributes
+      var input = document.createElement("input");
+      input.type = "text";
+      input.name = "fc";
+      input.id = "fc";
+      containerFreq.appendChild(input);
+      // Append a line break
+      containerFreq.appendChild(document.createElement("br"));
 
-  if (freq === "lpf" || freq === "hpf") {
-    // Append a node with a random text
-    containerFreq.appendChild(document.createTextNode("f0 : "));
-    // Create an <input> element, set its type, id and name attributes
-    var input = document.createElement("input");
-    input.type = "text";
-    input.name = "f0";
-    input.id = "f0";
-    containerFreq.appendChild(input);
-    // Append a line break
-    containerFreq.appendChild(document.createElement("br"));
-  } else {
-    // Append a node with a random text
-    containerFreq.appendChild(document.createTextNode("fc : "));
-    // Create an <input> element, set its type, id and name attributes
-    var input = document.createElement("input");
-    input.type = "text";
-    input.name = "fc";
-    input.id = "fc";
-    containerFreq.appendChild(input);
-    // Append a line break
-    containerFreq.appendChild(document.createElement("br"));
-
-    // Append a node with a random text
-    containerFreq.appendChild(document.createTextNode("BW : "));
-    // Create an <input> element, set its type, id and name attributes
-    var input = document.createElement("input");
-    input.type = "text";
-    input.name = "BW";
-    input.id = "BW";
-    containerFreq.appendChild(input);
-    // Append a line break
-    containerFreq.appendChild(document.createElement("br"));
+      // Append a node with a random text
+      containerFreq.appendChild(document.createTextNode("BW : "));
+      // Create an <input> element, set its type, id and name attributes
+      var input = document.createElement("input");
+      input.type = "text";
+      input.name = "BW";
+      input.id = "BW";
+      containerFreq.appendChild(input);
+      // Append a line break
+      containerFreq.appendChild(document.createElement("br"));
+    }
   }
 }
 
@@ -120,15 +121,19 @@ function calcul() {
       console.log("Filtru LPF");
 
       for (i = 1; i <= n; i++) {
-        showdata.appendChild(document.createTextNode("C" + i + " = " + CL[i]));
+        if (CL[i] < 1) CL[i] = CL[i] * 1000;
+        showdata.appendChild(document.createTextNode(" C" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         console.log("C" + i + " = " + CL[i]);
         i++;
-        if (i <= n)
+        if (i <= n) {
+          if (CL[i] < 1) CL[i] = CL[i] * 1000;
           showdata.appendChild(
-            document.createTextNode("L" + i + " = " + CL[i])
+            document.createTextNode(" L" + i + " = " + CL[i])
           );
-        showdata.appendChild(document.createElement("br"));
+          showdata.appendChild(document.createElement("br"));
+        }
+        if (i < n) showdata.appendChild(document.createElement("br"));
         console.log("L" + i + " = " + CL[i]);
       }
     }
@@ -143,15 +148,19 @@ function calcul() {
       console.log("Filtru HPF");
 
       for (i = 1; i <= n; i++) {
-        showdata.appendChild(document.createTextNode("L" + i + " = " + CL[i]));
+        if (CL[i] < 1) CL[i] = CL[i] * 1000;
+        showdata.appendChild(document.createTextNode(" L" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         console.log("L" + i + " = " + CL[i]);
         i++;
-        if (i <= n)
+        if (i <= n) {
+          if (CL[i] < 1) CL[i] = CL[i] * 1000;
           showdata.appendChild(
-            document.createTextNode("C" + i + " = " + CL[i])
+            document.createTextNode(" C" + i + " = " + CL[i])
           );
-        showdata.appendChild(document.createElement("br"));
+          showdata.appendChild(document.createElement("br"));
+        }
+        if (i < n) showdata.appendChild(document.createElement("br"));
         console.log("C" + i + " = " + CL[i]);
       }
     }
@@ -180,10 +189,10 @@ function calcul() {
       for (i = 1; i <= n; i++) {
         if (CL[i] < 1) CL[i] = CL[i] * 1000;
         if (MIRR[i] < 1) MIRR[i] = MIRR[i] * 1000;
-        showdata.appendChild(document.createTextNode("C" + i + " = " + CL[i]));
+        showdata.appendChild(document.createTextNode(" C" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         showdata.appendChild(
-          document.createTextNode("L" + i + " = " + MIRR[i])
+          document.createTextNode(" L" + i + " = " + MIRR[i])
         );
         showdata.appendChild(document.createElement("br"));
         if (i < n) showdata.appendChild(document.createElement("br"));
@@ -205,12 +214,15 @@ function calcul() {
       console.log("Filtru BRF");
 
       for (i = 1; i <= n; i++) {
-        showdata.appendChild(document.createTextNode("C" + i + " = " + CL[i]));
+        if (CL[i] < 1) CL[i] = CL[i] * 1000;
+        if (MIRR[i] < 1) MIRR[i] = MIRR[i] * 1000;
+        showdata.appendChild(document.createTextNode(" C" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         showdata.appendChild(
-          document.createTextNode("L" + i + " = " + MIRR[i])
+          document.createTextNode(" L" + i + " = " + MIRR[i])
         );
         showdata.appendChild(document.createElement("br"));
+        if (i < n) showdata.appendChild(document.createElement("br"));
       }
     }
   }
@@ -218,6 +230,11 @@ function calcul() {
 
 function calculus() {
   var showdata = document.getElementById("showdata");
+  var downloadBtn = document.getElementById("dwn-btn");
+  var resetBtn = document.getElementById("rst-btn");
+
+  downloadBtn.style.display = "initial";
+  resetBtn.style.display = "initial";
 
   while (showdata.hasChildNodes()) {
     showdata.removeChild(showdata.lastChild);
@@ -225,4 +242,176 @@ function calculus() {
   calcul();
 
   CSS;
+}
+
+function Help() {
+  var freq = document.getElementById("filterType").value;
+  var helpButton = document.getElementById("helpButtonDiv");
+  var imghelp = document.getElementById("imgHelp");
+  var helpButtonFirst = document.getElementById("helpBtn");
+  var helpImg = document.getElementById("helpImg");
+  while (helpButton.hasChildNodes()) {
+    helpButton.removeChild(helpButton.lastChild);
+    helpButtonFirst.removeChild(helpButtonFirst.lastChild);
+  }
+
+  // Create a help button
+  if (freq) {
+    var filterButton = document.createElement("button");
+    var helpBtn = document.createElement("button");
+    helpBtn.textContent = "Help";
+    helpBtn.id = "helpBtnCSS";
+    filterButton.textContent = "Vezi filtru";
+    filterButton.id = "btnHelp";
+    if (freq === "lpf") {
+      helpImg.className = "helpLPF";
+      helpBtn.addEventListener("click", function () {
+        document.getElementById("helpImg").classList.toggle("open-helpLPF");
+      });
+
+      filterButton.className = "lpfHelp helpButtonCSS";
+      imgHelp.className = "LPF";
+      filterButton.addEventListener("click", function () {
+        document.getElementById("imgHelp").classList.toggle("open-LPF");
+      });
+    } else if (freq == "hpf") {
+      helpImg.className = "helpHPF";
+      helpBtn.addEventListener("click", function () {
+        document.getElementById("helpImg").classList.toggle("open-helpHPF");
+      });
+
+      filterButton.className = "hpfHelp helpButtonCSS";
+      imgHelp.className = "HPF";
+      filterButton.addEventListener("click", function () {
+        document.getElementById("imgHelp").classList.toggle("open-HPF");
+      });
+    } else if (freq == "bpf") {
+      helpImg.className = "helpBPF";
+      helpBtn.addEventListener("click", function () {
+        document.getElementById("helpImg").classList.toggle("open-helpBPF");
+      });
+
+      filterButton.className = "bpfHelp helpButtonCSS";
+      imgHelp.className = "BPF";
+      filterButton.addEventListener("click", function () {
+        document.getElementById("imgHelp").classList.toggle("open-BPF");
+      });
+    } else {
+      helpImg.className = "helpBRF";
+      helpBtn.addEventListener("click", function () {
+        document.getElementById("helpImg").classList.toggle("open-helpBRF");
+      });
+
+      filterButton.className = "brfHelp helpButtonCSS";
+      imgHelp.className = "BRF";
+      filterButton.addEventListener("click", function () {
+        document.getElementById("imgHelp").classList.toggle("open-BRF");
+      });
+    }
+
+    helpButton.appendChild(filterButton);
+    helpButtonFirst.appendChild(helpBtn);
+  }
+}
+
+function ChangeHelpImage() {
+  var order = document.getElementById("order").value;
+  var freq = document.getElementById("filterType").value;
+  var imghelp = document.getElementById("imgHelp");
+  var imgSize = document.createElement("img");
+  var helpImg = document.getElementById("helpImg");
+  var helpImgSize = document.createElement("img");
+
+  while (imghelp.hasChildNodes()) {
+    imghelp.removeChild(imghelp.lastChild);
+    helpImg.removeChild(helpImg.lastChild);
+  }
+  if (freq) {
+    if (freq === "lpf") {
+      helpImgSize.setAttribute("src", "img/LPF2pana9/psvLPF.png");
+      helpImgSize.style.visibility = "hidden";
+      helpImgSize.style.display = "block";
+      helpImgSize.style.width = "100%";
+      helpImg.style.backgroundImage = "url(img/LPF2pana9/psvLPF.png)";
+
+      imgSize.setAttribute("src", "img/LPF2pana9/lpf" + order + ".png");
+      imgSize.style.visibility = "hidden";
+      imgSize.style.display = "block";
+      imgSize.style.width = "100%";
+      imghelp.style.backgroundImage = "url(img/LPF2pana9/lpf" + order + ".png)";
+    } else if (freq == "hpf") {
+      helpImgSize.setAttribute("src", "img/HPF2pana9/psvHPF.png");
+      helpImgSize.style.visibility = "hidden";
+      helpImgSize.style.display = "block";
+      helpImgSize.style.width = "100%";
+      helpImg.style.backgroundImage = "url(img/HPF2pana9/psvHPF.png)";
+
+      imgSize.setAttribute("src", "img/HPF2pana9/hpf" + order + ".png");
+      imgSize.style.visibility = "hidden";
+      imgSize.style.display = "block";
+      imgSize.style.width = "100%";
+      imghelp.style.backgroundImage = "url(img/HPF2pana9/hpf" + order + ".png)";
+    } else if (freq == "bpf") {
+      helpImgSize.setAttribute("src", "img/BPF2pana9/psvBPF.png");
+      helpImgSize.style.visibility = "hidden";
+      helpImgSize.style.display = "block";
+      helpImgSize.style.width = "100%";
+      helpImg.style.backgroundImage = "url(img/BPF2pana9/psvBPF.png)";
+
+      imgSize.setAttribute("src", "img/BPF2pana9/bpf" + order + ".png");
+      imgSize.style.visibility = "hidden";
+      imgSize.style.display = "block";
+      imgSize.style.width = "100%";
+      imghelp.style.backgroundImage = "url(img/BPF2pana9/bpf" + order + ".png)";
+    } else {
+      helpImgSize.setAttribute("src", "img/BRF2pana9/psvBRF.png");
+      helpImgSize.style.visibility = "hidden";
+      helpImgSize.style.display = "block";
+      helpImgSize.style.width = "100%";
+      helpImg.style.backgroundImage = "url(img/BRF2pana9/psvBRF.png)";
+
+      imgSize.setAttribute("src", "img/BRF2pana9/brf" + order + ".png");
+      imgSize.style.visibility = "hidden";
+      imgSize.style.display = "block";
+      imgSize.style.width = "100%";
+      imghelp.style.backgroundImage = "url(img/BRF2pana9/brf" + order + ".png)";
+    }
+    imghelp.appendChild(imgSize);
+    helpImg.appendChild(helpImgSize);
+  }
+}
+
+function download(filename, text) {
+  var element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+function Download() {
+  var order = document.getElementById("order").value;
+  var freq = document.getElementById("filterType").value;
+  var text = "param R = ... " + document.getElementById("showdata").textContent;
+  var filename = freq + order + ".txt";
+  console.log(text);
+  download(filename, text);
+}
+
+function Reset() {
+  location.reload();
+}
+
+function ShowFilterButton() {
+  var filerButton = document.getElementById("btnHelp");
+
+  filerButton.style.display = "initial";
 }

@@ -19,6 +19,13 @@ body{
 
 }
 
+.all{
+    display: flex;
+    gap: 34px;
+    align-items: center;
+    flex-direction: column;
+}
+
 @media (min-width: 320px) and (max-width: 990px) {
    body{
     margin: 20px;
@@ -51,8 +58,20 @@ body{
     font-size: 20px;
 }
 
-.box {
+.filterContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
+.orderInput {
     padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.box {
     padding-right: 5px;
     text-align: end;
 }
@@ -68,7 +87,62 @@ body{
     display: flex;  
     justify-content: center;  
     align-items: center;
-    padding-top: 10px;
+    padding-top: 20px;
+    flex-direction: column;
+}
+
+.btnOptions {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+
+.downloadBtn{
+    display: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #ffffff;
+    background-color: #1cd86a;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #999;
+}
+
+.downloadBtn:hover {background-color: #11a04c}
+
+.downloadBtn:active {
+  background-color: #11a04c;
+  box-shadow: 0 1px #666;
+  transform: translateY(4px);
+}
+
+
+.resetBtn{
+    display: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #ffffff;
+    background-color: #e64e4e;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #999;
+}
+
+.resetBtn:hover {background-color: #c02222}
+
+.resetBtn:active {
+  background-color: #c02222;
+  box-shadow: 0 1px #666;
+  transform: translateY(4px);
 }
 
 .button {
@@ -94,12 +168,276 @@ body{
   transform: translateY(4px);
 }
 
+.helpButtonCSS{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #000000;
+    background-color: #e7ff61;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #999;
+}
+
+.helpButtonCSS:hover {background-color: #d6f13d}
+
+.helpButtonCSS:active {
+  background-color: #d6f13d;
+  box-shadow: 0 1px #666;
+  transform: translateY(4px);
+}
+
+
 .resistence{
     padding-top: 10px;
 }
 
 .filterType{
     width: 5em;
+    height: 20px;
 }
 
+.LPF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-LPF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.HPF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-HPF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.BPF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-BPF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.BRF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-BRF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+
+/* Help Button */
+
+.helpLPF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-helpLPF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.helpHPF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-helpHPF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.helpBPF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-helpBPF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.helpBRF{
+    background: lightblue;
+    width: 0px;
+    height: 0px;
+    -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      right: 5rem;
+}
+
+.open-helpBRF {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 10px rgb(0, 0, 0) solid;
+    border-radius: 20px;
+    box-shadow: 5px 7px #7a7a7a;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+#btnHelp {
+    display: none;
+}
+
+
+
+#helpBtnCSS{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #ffffff;
+    background-color: #0d76ff;
+    border: none;
+    border-radius: 100px;
+    box-shadow: 0 6px #999;
+}
+
+#helpBtnCSS:hover {background-color: #02469e}
+
+#helpBtnCSS:active {
+  background-color: #02469e;
+  box-shadow: 0 1px #666;
+  transform: translateY(4px);
+}
 
