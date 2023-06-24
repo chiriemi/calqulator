@@ -400,7 +400,8 @@ function download(filename, text) {
 function Download() {
   var order = document.getElementById("order").value;
   var freq = document.getElementById("filterType").value;
-  var text = "param R = ... " + document.getElementById("showdata").textContent;
+  var R = conversion();
+  var text = "param R = " + R + document.getElementById("showdata").textContent;
   var filename = freq + order + ".txt";
   console.log(text);
   download(filename, text);
