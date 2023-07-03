@@ -84,6 +84,16 @@ function conversion() {
   var unit = document.getElementById("unit").value;
   var R = document.getElementById("R").value;
 
+  if (unit === "kohm") R = R * 1000;
+  else if (unit === "megohm") R = R * 1000000;
+
+  return R;
+}
+
+function conversionPrim() {
+  var unit = document.getElementById("unit").value;
+  var R = document.getElementById("R").value;
+
   if (unit === "ohm") R = R / 1000;
   else if (unit === "megohm") R = R * 1000;
 
@@ -95,7 +105,6 @@ function calcul() {
   var CnLn = [];
   var CL = [];
   var R = conversion();
-  // var R = document.getElementById("R").value;
   var freq = document.getElementById("filterType").value;
 
   for (i = 1; i <= n; i++) {
@@ -121,13 +130,13 @@ function calcul() {
       console.log("Filtru LPF");
 
       for (i = 1; i <= n; i++) {
-        if (CL[i] < 1) CL[i] = CL[i] * 1000;
+        CL[i] = unitate(CL[i]);
         showdata.appendChild(document.createTextNode(" C" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         console.log("C" + i + " = " + CL[i]);
         i++;
         if (i <= n) {
-          if (CL[i] < 1) CL[i] = CL[i] * 1000;
+          CL[i] = unitate(CL[i]);
           showdata.appendChild(
             document.createTextNode(" L" + i + " = " + CL[i])
           );
@@ -148,13 +157,13 @@ function calcul() {
       console.log("Filtru HPF");
 
       for (i = 1; i <= n; i++) {
-        if (CL[i] < 1) CL[i] = CL[i] * 1000;
+        CL[i] = unitate(CL[i]);
         showdata.appendChild(document.createTextNode(" L" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         console.log("L" + i + " = " + CL[i]);
         i++;
         if (i <= n) {
-          if (CL[i] < 1) CL[i] = CL[i] * 1000;
+          CL[i] = unitate(CL[i]);
           showdata.appendChild(
             document.createTextNode(" C" + i + " = " + CL[i])
           );
@@ -169,11 +178,10 @@ function calcul() {
     var BW = document.getElementById("BW").value;
     var MIRR = [];
     var wc = 2 * Math.PI * fc;
-
+    var Qbp = wc / (2 * Math.PI * BW);
     // Filtru trece banda BPF
 
     if (freq === "bpf") {
-      var Qbp = wc / (2 * Math.PI * BW);
       for (i = 1; i <= n; i++) {
         CL[i] = (Qbp * CnLn[i]) / (wc * R);
         MIRR[i] = R / (Qbp * wc * CnLn[i]);
@@ -187,8 +195,8 @@ function calcul() {
       console.log("Filtru BPF");
 
       for (i = 1; i <= n; i++) {
-        if (CL[i] < 1) CL[i] = CL[i] * 1000;
-        if (MIRR[i] < 1) MIRR[i] = MIRR[i] * 1000;
+        CL[i] = unitate(CL[i]);
+        MIRR[i] = unitate(MIRR[i]);
         showdata.appendChild(document.createTextNode(" C" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         showdata.appendChild(
@@ -201,21 +209,20 @@ function calcul() {
 
     // Filtru banda stop BRF
     else {
-      var Qbr = wc / (2 * Math.PI * BW);
       for (i = 1; i <= n; i++) {
-        CL[i] = CnLn[i] / (wc * R * Qbr);
-        MIRR[i] = (R * Qbr) / (wc * CnLn[i]);
+        CL[i] = CnLn[i] / (wc * R * Qbp);
+        MIRR[i] = (R * Qbp) / (wc * CnLn[i]);
         if (i + 1 <= n) {
           i++;
-          CL[i] = Qbr / (wc * R * CnLn[i]);
-          MIRR[i] = (R * CnLn[i]) / (wc * Qbr);
+          CL[i] = Qbp / (wc * R * CnLn[i]);
+          MIRR[i] = (R * CnLn[i]) / (wc * Qbp);
         }
       }
       console.log("Filtru BRF");
 
       for (i = 1; i <= n; i++) {
-        if (CL[i] < 1) CL[i] = CL[i] * 1000;
-        if (MIRR[i] < 1) MIRR[i] = MIRR[i] * 1000;
+        CL[i] = unitate(CL[i]);
+        MIRR[i] = unitate(MIRR[i]);
         showdata.appendChild(document.createTextNode(" C" + i + " = " + CL[i]));
         showdata.appendChild(document.createElement("br"));
         showdata.appendChild(
@@ -225,6 +232,24 @@ function calcul() {
         if (i < n) showdata.appendChild(document.createElement("br"));
       }
     }
+  }
+}
+
+function unitate(valoare) {
+  var count = 0;
+  if (valoare < 1) {
+    while (valoare < 1) {
+      valoare = valoare * 1000;
+      count = count + 1;
+    }
+    valoare = valoare.toFixed(4);
+    if (count == 1) return valoare + "m";
+    else if (count == 2) return valoare + "u";
+    else if (count == 3) return valoare + "n";
+    else return valoare + "p";
+  } else {
+    valoare = valoare.toFixed(4);
+    return valoare;
   }
 }
 
@@ -400,8 +425,9 @@ function download(filename, text) {
 function Download() {
   var order = document.getElementById("order").value;
   var freq = document.getElementById("filterType").value;
-  var R = conversion();
-  var text = "param R = " + R + document.getElementById("showdata").textContent;
+  var R = conversionPrim();
+  var text =
+    ".param R=" + R + "k" + document.getElementById("showdata").textContent;
   var filename = freq + order + ".txt";
   console.log(text);
   download(filename, text);
