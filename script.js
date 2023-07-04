@@ -10,7 +10,7 @@ function addFieldsFreq() {
   if (freq) {
     if (freq === "lpf" || freq === "hpf") {
       // Append a node with a random text
-      containerFreq.appendChild(document.createTextNode("f0 : "));
+      containerFreq.appendChild(document.createTextNode("f0 (Hz): "));
       // Create an <input> element, set its type, id and name attributes
       var input = document.createElement("input");
       input.type = "text";
@@ -21,7 +21,7 @@ function addFieldsFreq() {
       containerFreq.appendChild(document.createElement("br"));
     } else {
       // Append a node with a random text
-      containerFreq.appendChild(document.createTextNode("fc : "));
+      containerFreq.appendChild(document.createTextNode("fc (Hz): "));
       // Create an <input> element, set its type, id and name attributes
       var input = document.createElement("input");
       input.type = "text";
@@ -32,7 +32,7 @@ function addFieldsFreq() {
       containerFreq.appendChild(document.createElement("br"));
 
       // Append a node with a random text
-      containerFreq.appendChild(document.createTextNode("BW : "));
+      containerFreq.appendChild(document.createTextNode("BW (Hz): "));
       // Create an <input> element, set its type, id and name attributes
       var input = document.createElement("input");
       input.type = "text";
